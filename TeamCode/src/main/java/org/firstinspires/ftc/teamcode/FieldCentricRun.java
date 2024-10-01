@@ -4,13 +4,19 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp //shows class in driver station
-public class RobotCentricRun extends LinearOpMode { //Adds LinearOpMode class into RobotCentricRun
+public class FieldCentricRun extends LinearOpMode { //Adds LinearOpMode class into this new class
 
-    RobotCentricDriveTrain drive;
+    FieldCentricDriveTrain drive;
 
     @Override //Inheritance, modifying method (overriding method) in Linear Opmode
     public void runOpMode() {
-        drive = new RobotCentricDriveTrain(hardwareMap, gamepad1, telemetry);
+        try {
+            drive = new FieldCentricDriveTrain(hardwareMap, gamepad1, telemetry);
+        }
+        catch (Exception message) {
+            telemetry.addData("Message:",message.getMessage());
+            telemetry.update();
+        }
         waitForStart();
         while (opModeIsActive()) { //makes sure code is running for whole duration
             drive.loop();
